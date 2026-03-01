@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import {
   MapPin,
@@ -19,6 +20,7 @@ import {
   BUKKEN_LIST,
   BUILD_PRICES,
   getAreas,
+  getActiveBukken,
   type Bukken,
   type BukkenStatus,
 } from "@/lib/bukken";
@@ -26,7 +28,7 @@ import {
 /* ── 定数 ── */
 const ALL_AREAS = ["すべて", ...getAreas(BUKKEN_LIST)] as const;
 const STATUS_COLORS: Record<BukkenStatus, { bg: string; text: string; dot: string }> = {
-  販売中:     { bg: "rgba(107,143,113,0.12)", text: "#3A6B40",  dot: "#6B8F71" },
+  募集中:     { bg: "rgba(107,143,113,0.12)", text: "#3A6B40",  dot: "#6B8F71" },
   残りわずか: { bg: "rgba(196,133,31,0.12)",  text: "#8B5E10",  dot: "#C4851F" },
   完売:       { bg: "rgba(100,100,100,0.10)", text: "#666666",  dot: "#999999" },
 };
@@ -34,9 +36,10 @@ const STATUS_COLORS: Record<BukkenStatus, { bg: string; text: string; dot: strin
 /* ── 物件カード ── */
 function BukkenCard({ b }: { b: Bukken }) {
   const sc = STATUS_COLORS[b.status];
-  const totalKyo  = b.landPrice + BUILD_PRICES.kyo;
-  const totalHana = b.landPrice + BUILD_PRICES.hana;
+  const totalKyo  = b.landPrice != null ? b.landPrice + BUILD_PRICES.kyo  : null;
+  const totalHana = b.landPrice != null ? b.landPrice + BUILD_PRICES.hana : null;
   const isSoldOut = b.status === "完売";
+  const mainPhoto = b.photos[0] ?? null;
 
   return (
     <article
@@ -48,15 +51,25 @@ function BukkenCard({ b }: { b: Bukken }) {
         opacity: isSoldOut ? 0.55 : 1,
       }}
     >
-      {/* ── 写真エリア（プレースホルダー） ── */}
+      {/* ── 写真エリア ── */}
       <div
         className="relative"
         style={{
-          background: b.gradient,
           paddingBottom: "62%",
           overflow: "hidden",
+          background: "#1C2B1E",
         }}
       >
+        {mainPhoto && (
+          <Image
+            src={mainPhoto}
+            alt={b.name}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1100px) 50vw, 33vw"
+            className="object-cover"
+            style={{ transition: "transform 0.4s ease" }}
+          />
+        )}
         {/* ステータスバッジ */}
         <div
           className="absolute top-3 left-3 flex items-center gap-1.5 px-3 py-1 rounded-full"
@@ -296,7 +309,7 @@ function BukkenCard({ b }: { b: Bukken }) {
                   color: "var(--primary)",
                 }}
               >
-                {b.landPrice.toLocaleString()}
+                {b.landPrice != null ? b.landPrice.toLocaleString() : "—"}
                 <span
                   style={{
                     fontSize: "12px",
@@ -310,92 +323,94 @@ function BukkenCard({ b }: { b: Bukken }) {
             </div>
 
             {/* 建物込み総額 */}
-            <div
-              style={{
-                borderTop: "1px solid rgba(123,101,68,0.15)",
-                paddingTop: "12px",
-              }}
-            >
-              <p
+            {totalKyo != null && totalHana != null && (
+              <div
                 style={{
-                  fontFamily: "var(--font-sans-loaded,'Noto Sans JP',sans-serif)",
-                  fontSize: "11px",
-                  color: "var(--text-light)",
-                  marginBottom: "8px",
-                  letterSpacing: "0.04em",
+                  borderTop: "1px solid rgba(123,101,68,0.15)",
+                  paddingTop: "12px",
                 }}
               >
-                建物込み・コミコミ総額（税込）
-              </p>
-              <div className="flex flex-col gap-1.5">
-                <div className="flex items-baseline justify-between">
-                  <span
-                    className="px-2 py-0.5 rounded"
-                    style={{
-                      fontFamily: "var(--font-serif-loaded,'Noto Serif JP',serif)",
-                      fontSize: "11px",
-                      background: "rgba(123,101,68,0.15)",
-                      color: "var(--primary)",
-                      letterSpacing: "0.08em",
-                    }}
-                  >
-                    京 KYO
-                  </span>
-                  <span
-                    style={{
-                      fontFamily: "var(--font-inter-loaded,'Inter',sans-serif)",
-                      fontSize: "17px",
-                      fontWeight: 600,
-                      color: "var(--text)",
-                    }}
-                  >
-                    {totalKyo.toLocaleString()}
+                <p
+                  style={{
+                    fontFamily: "var(--font-sans-loaded,'Noto Sans JP',sans-serif)",
+                    fontSize: "11px",
+                    color: "var(--text-light)",
+                    marginBottom: "8px",
+                    letterSpacing: "0.04em",
+                  }}
+                >
+                  建物込み・コミコミ総額（税込）
+                </p>
+                <div className="flex flex-col gap-1.5">
+                  <div className="flex items-baseline justify-between">
                     <span
+                      className="px-2 py-0.5 rounded"
                       style={{
-                        fontSize: "12px",
-                        color: "var(--text-light)",
-                        marginLeft: "2px",
+                        fontFamily: "var(--font-serif-loaded,'Noto Serif JP',serif)",
+                        fontSize: "11px",
+                        background: "rgba(123,101,68,0.15)",
+                        color: "var(--primary)",
+                        letterSpacing: "0.08em",
                       }}
                     >
-                      万円〜
+                      京 KYO
                     </span>
-                  </span>
-                </div>
-                <div className="flex items-baseline justify-between">
-                  <span
-                    className="px-2 py-0.5 rounded"
-                    style={{
-                      fontFamily: "var(--font-serif-loaded,'Noto Serif JP',serif)",
-                      fontSize: "11px",
-                      background: "rgba(196,133,31,0.12)",
-                      color: "#8B5E10",
-                      letterSpacing: "0.08em",
-                    }}
-                  >
-                    花・風 HANA / KAZE
-                  </span>
-                  <span
-                    style={{
-                      fontFamily: "var(--font-inter-loaded,'Inter',sans-serif)",
-                      fontSize: "17px",
-                      fontWeight: 600,
-                      color: "var(--text)",
-                    }}
-                  >
-                    {totalHana.toLocaleString()}
                     <span
                       style={{
-                        fontSize: "12px",
-                        color: "var(--text-light)",
-                        marginLeft: "2px",
+                        fontFamily: "var(--font-inter-loaded,'Inter',sans-serif)",
+                        fontSize: "17px",
+                        fontWeight: 600,
+                        color: "var(--text)",
                       }}
                     >
-                      万円〜
+                      {totalKyo.toLocaleString()}
+                      <span
+                        style={{
+                          fontSize: "12px",
+                          color: "var(--text-light)",
+                          marginLeft: "2px",
+                        }}
+                      >
+                        万円〜
+                      </span>
                     </span>
-                  </span>
+                  </div>
+                  <div className="flex items-baseline justify-between">
+                    <span
+                      className="px-2 py-0.5 rounded"
+                      style={{
+                        fontFamily: "var(--font-serif-loaded,'Noto Serif JP',serif)",
+                        fontSize: "11px",
+                        background: "rgba(196,133,31,0.12)",
+                        color: "#8B5E10",
+                        letterSpacing: "0.08em",
+                      }}
+                    >
+                      花・風 HANA / KAZE
+                    </span>
+                    <span
+                      style={{
+                        fontFamily: "var(--font-inter-loaded,'Inter',sans-serif)",
+                        fontSize: "17px",
+                        fontWeight: 600,
+                        color: "var(--text)",
+                      }}
+                    >
+                      {totalHana.toLocaleString()}
+                      <span
+                        style={{
+                          fontSize: "12px",
+                          color: "var(--text-light)",
+                          marginLeft: "2px",
+                        }}
+                      >
+                        万円〜
+                      </span>
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
         ) : (
           <div
@@ -466,9 +481,8 @@ export default function BukkenPage() {
     return areaOk && statusOk;
   });
 
-  const activeLots = BUKKEN_LIST.filter(
-    (b) => b.status !== "完売"
-  ).reduce((acc, b) => acc + b.remainingLots, 0);
+  const activeLots = getActiveBukken(BUKKEN_LIST)
+    .reduce((acc, b) => acc + (b.remainingLots ?? 0), 0);
 
   return (
     <>
@@ -640,7 +654,7 @@ export default function BukkenPage() {
 
             {/* ステータスフィルター */}
             <div className="flex gap-2">
-              {(["すべて", "販売中", "残りわずか"] as const).map((s) => (
+              {(["すべて", "募集中", "残りわずか"] as const).map((s) => (
                 <button
                   key={s}
                   onClick={() => setSelectedStatus(s)}
