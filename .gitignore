@@ -39,3 +39,22 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# screenshots (ルート直下のみ除外)
+/*.png
+/*.jpg
+/*.jpeg
+
+# local spec/doc files
+top-page-spec.md
+top-page-spec-v2.md
+design-review-v2.md
+claude-code-fix-prompt.md
+cursor-instructions.md
+CLAUDE.md
+
+# playwright scripts
+screenshot-*.mjs
+
+# docs (local only)
+docs/
