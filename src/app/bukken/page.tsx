@@ -171,7 +171,7 @@ function BukkenCard({ b }: { b: Bukken }) {
                 letterSpacing: "0.02em",
               }}
             >
-              {b.station}　徒歩{b.stationWalk}分
+              {b.station}　{b.stationAccess}
             </span>
           </div>
           <div className="flex items-start gap-2">

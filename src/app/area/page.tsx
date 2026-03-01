@@ -12,7 +12,22 @@ export const metadata: Metadata = {
 };
 
 /* ── エリアデータ ── */
-const AREAS = [
+type AreaItem = {
+  id: string;
+  name: string;
+  en: string;
+  pref: string;
+  gradient: string;
+  stations: string[];
+  landPrice: string;
+  feature: string;
+  strengths: string[];
+  completedCount: string;
+  popularSpots: string[];
+  isMain?: boolean;
+};
+
+const AREAS: AreaItem[] = [
   {
     id: "nara",
     name: "奈良市",
@@ -150,7 +165,7 @@ const AREAS = [
     completedCount: "8棟",
     popularSpots: ["田原本エリア", "唐古エリア"],
   },
-] as const;
+];
 
 export default function AreaPage() {
   return (
