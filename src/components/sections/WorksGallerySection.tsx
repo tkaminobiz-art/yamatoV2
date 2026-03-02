@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { FadeUp } from "@/components/ui/FadeUp";
@@ -49,7 +50,17 @@ export function WorksGallerySection() {
                 <div
                   className="absolute inset-0 group-hover:scale-[1.02] transition-transform duration-500"
                   style={{ background: work.gradient }}
-                />
+                >
+                  {work.image && (
+                    <Image
+                      src={work.image}
+                      alt={`${work.area} ${work.name} — ${work.title}`}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="object-cover object-center"
+                    />
+                  )}
+                </div>
                 <div
                   className="absolute inset-0"
                   style={{ background: "linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.65) 100%)" }}

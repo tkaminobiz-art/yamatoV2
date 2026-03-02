@@ -53,7 +53,7 @@ const SLIDES = [
   {
     id: "family",
     gradient: "linear-gradient(160deg, #1C1510 0%, #3A2A1A 35%, #6B4F2E 65%, #C4A070 100%)",
-    image: null,
+    image: "/images/hero/slide-03.jpg",
     label: "暮らしについて",
     heading: "家族が自然と集まる場所を、\n奈良に作り続けています。",
     headingSp: "家族が自然と集まる\n場所を、奈良に\n作り続けています。",

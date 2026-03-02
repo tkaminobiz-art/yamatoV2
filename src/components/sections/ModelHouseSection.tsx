@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { motion, type Variants } from "framer-motion";
 import { FadeUp } from "@/components/ui/FadeUp";
@@ -16,10 +17,10 @@ const HOUSES = [
     priceNote: "（税込・コミコミ）",
     layout: "3LDK / 28坪",
     keyword: "コンパクト × 都市型",
-    // F: 28坪・ハイドア → B: 4人家族でも「狭い」と感じない間取り
     description: "28坪でも、4人家族が窮屈に感じない間取り。\nイクタ社フローリング・ハイドアで広さを体感できます。",
     cta: "京を見学する",
     gradient: "linear-gradient(135deg, #C4A265 0%, #7B6544 100%)",
+    image: "/images/modelhouse/kyo.jpg",
   },
   {
     id: "hana",
@@ -29,10 +30,10 @@ const HOUSES = [
     priceNote: "（税込・コミコミ）",
     layout: "4LDK / 31坪",
     keyword: "充実仕様 × こだわり",
-    // F: 天井高2,500mm・クリナップ → B: キッチンに立つたびに「良い家に住んでいる」と感じる
     description: "1F天井高2,500mm。クリナップ「ステディア」標準。\nキッチンに立つたびに、選んで良かったと思える家です。",
     cta: "花を見学する",
     gradient: "linear-gradient(135deg, #D4A574 0%, #8B6914 100%)",
+    image: "/images/modelhouse/hana.jpg",
   },
   {
     id: "kaze",
@@ -42,10 +43,10 @@ const HOUSES = [
     priceNote: "（税込・コミコミ）",
     layout: "4LDK / 30坪",
     keyword: "スマート × 子育て",
-    // F: 長期優良住宅・MIRAIE → B: 子どもが独立した後も、資産価値が続く
     description: "長期優良住宅対応・MIRAIE標準。\n子どもが独立した後も、資産として残る家を目指しました。",
     cta: "風を見学する",
     gradient: "linear-gradient(135deg, #7BA97B 0%, #4A7C59 100%)",
+    image: "/images/modelhouse/kaze.jpg",
   },
 ] as const;
 
@@ -98,20 +99,23 @@ export function ModelHouseSection() {
                 onMouseEnter={e => { (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 32px rgba(0,0,0,0.12), 0 24px 64px rgba(0,0,0,0.10)"; (e.currentTarget as HTMLElement).style.transform = "translateY(-4px)"; }}
                 onMouseLeave={e => { (e.currentTarget as HTMLElement).style.boxShadow = "var(--shadow-card-lg)"; (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; }}
               >
-                {/* Image placeholder — 16:9 (Step 3対応) */}
+                {/* モデルハウス画像 */}
                 <div
-                  className="w-full overflow-hidden"
+                  className="relative w-full overflow-hidden"
                   style={{ aspectRatio: "16/9", background: house.gradient }}
                   aria-label={`モデルハウス「${house.name}」`}
                 >
-                  <div className="w-full h-full flex flex-col items-center justify-center group-hover:scale-[1.03] transition-transform duration-500">
-                    <span
-                      className="text-white/20 font-serif"
-                      style={{ fontSize: "clamp(4rem,7vw,5rem)", fontFamily: "var(--font-serif-loaded,'Noto Serif JP',serif)", letterSpacing: "0.1em" }}
-                    >
-                      {house.name}
-                    </span>
-                  </div>
+                  <Image
+                    src={house.image}
+                    alt={`モデルハウス「${house.name}」外観`}
+                    fill
+                    sizes="(max-width: 768px) 300px, 400px"
+                    className="object-cover object-center group-hover:scale-[1.03] transition-transform duration-500"
+                  />
+                  <div
+                    className="absolute inset-0 pointer-events-none"
+                    style={{ background: "linear-gradient(to top, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0) 50%)" }}
+                  />
                 </div>
 
                 <div className="p-8 flex flex-col flex-1 gap-3">

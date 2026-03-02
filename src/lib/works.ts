@@ -12,6 +12,7 @@ export type Work = {
   style: string;
   title: string;
   gradient: string;
+  image?: string;
   large?: boolean;
   // 詳細ページ用
   year: string;
@@ -31,6 +32,7 @@ export const WORKS: Work[] = [
     style: "モダン",
     title: "パワーボードの白い外壁。5年経っても色褪せない",
     gradient: "linear-gradient(135deg, #7B5A2A 0%, #B8935A 50%, #DEB887 100%)",
+    image: "/images/works/works-01.jpg",
     large: true,
     year: "2021年竣工",
     family: "ご夫婦＋お子様2名",
@@ -59,6 +61,7 @@ export const WORKS: Work[] = [
     style: "ナチュラル",
     title: "20畳のLDK。休日は家族4人がここに集まる",
     gradient: "linear-gradient(135deg, #6B4A3A 0%, #9B7A6A 50%, #C4A090 100%)",
+    image: "/images/works/works-02.jpg",
     year: "2022年竣工",
     family: "ご夫婦＋お子様2名",
     concept: "家族が自然と集まるLDKを中心に設計した、ナチュラルウッドスタイル",
@@ -86,6 +89,7 @@ export const WORKS: Work[] = [
     style: "シンプルモダン",
     title: "対面キッチンから子どもの宿題が見える",
     gradient: "linear-gradient(135deg, #5A6B4A 0%, #8FAF75 50%, #B8D4A0 100%)",
+    image: "/images/works/works-03.jpg",
     year: "2022年竣工",
     family: "ご夫婦＋お子様1名",
     concept: "子育てしやすさを最優先。親の目が届くオープン動線",
@@ -113,6 +117,7 @@ export const WORKS: Work[] = [
     style: "インダストリアル",
     title: "ガルバリウムの外壁にレッドシダーのウッドデッキ",
     gradient: "linear-gradient(135deg, #4A5568 0%, #718096 50%, #A0AEC0 100%)",
+    image: "/images/works/works-04.jpg",
     year: "2023年竣工",
     family: "ご夫婦",
     concept: "28坪という限られた坪数で、こだわりの素材と最大限の空間効率を両立",
@@ -140,6 +145,7 @@ export const WORKS: Work[] = [
     style: "和モダン",
     title: "リビング横の畳コーナー。子どもの昼寝場所になった",
     gradient: "linear-gradient(135deg, #6B5A3A 0%, #9B8A6A 50%, #C4B490 100%)",
+    image: "/images/works/works-05.jpg",
     year: "2023年竣工",
     family: "ご夫婦＋お子様2名＋祖父母",
     concept: "現代の生活に溶け込む和の要素。3世代が快適に暮らせる設計",
@@ -167,6 +173,7 @@ export const WORKS: Work[] = [
     style: "北欧",
     title: "三面鏡付き洗面台。朝の渋滞がなくなった",
     gradient: "linear-gradient(135deg, #3A4A5A 0%, #6A7A8A 50%, #9AAABB 100%)",
+    image: "/images/works/works-06.jpg",
     year: "2024年竣工",
     family: "ご夫婦＋お子様1名",
     concept: "共働き夫婦の朝の動線を徹底最適化した、機能美あふれる北欧スタイル",
