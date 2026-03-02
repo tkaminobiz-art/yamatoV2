@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { useRef, useState, useEffect, useCallback } from "react";
@@ -22,6 +23,7 @@ const SLIDES = [
   {
     id: "philosophy",
     gradient: "linear-gradient(160deg, #2C1F10 0%, #5A3D1E 35%, #8B6340 65%, #C4A070 100%)",
+    image: "/images/hero/slide-01.jpg",
     label: "やまと不動産について",
     heading: "大切な家族の家だから、\nハウスメーカーの都合で\n高くなっていいはずがない。",
     headingSp: "大切な家族の家だから、\nハウスメーカーの都合で\n高くなっていいはずがない。",
@@ -31,6 +33,7 @@ const SLIDES = [
   {
     id: "commitment",
     gradient: "linear-gradient(160deg, #1A2318 0%, #2E3D2A 35%, #4A6045 65%, #7B9474 100%)",
+    image: null,
     label: "やまと不動産について",
     heading: "部材ひとつの交渉も、\nお客様に適正価格で\n住んでもらうため。",
     headingSp: "部材ひとつの交渉も、\nお客様に適正価格で\n住んでもらうため。",
@@ -40,6 +43,7 @@ const SLIDES = [
   {
     id: "quality",
     gradient: "linear-gradient(160deg, #1E1A12 0%, #3D3220 35%, #6B5535 65%, #B8935A 100%)",
+    image: null,
     label: "標準仕様について",
     heading: "旭化成・住友ゴム・クリナップ。\n全部、標準です。",
     headingSp: "旭化成・住友ゴム・\nクリナップ。\n全部、標準です。",
@@ -49,6 +53,7 @@ const SLIDES = [
   {
     id: "family",
     gradient: "linear-gradient(160deg, #1C1510 0%, #3A2A1A 35%, #6B4F2E 65%, #C4A070 100%)",
+    image: null,
     label: "暮らしについて",
     heading: "家族が自然と集まる場所を、\n奈良に作り続けています。",
     headingSp: "家族が自然と集まる\n場所を、奈良に\n作り続けています。",
@@ -124,14 +129,29 @@ export function HeroSection() {
             exit={{ opacity: 0 }}
             transition={{ duration: 1.2, ease: "easeInOut" }}
             style={{ background: slide.gradient }}
-          />
+          >
+            {slide.image && (
+              <Image
+                src={slide.image}
+                alt=""
+                fill
+                priority
+                sizes="100vw"
+                className="object-cover object-center"
+              />
+            )}
+          </motion.div>
         </AnimatePresence>
       </motion.div>
 
-      {/* オーバーレイ */}
+      {/* オーバーレイ — 写真の上は少し濃いめに */}
       <div
         className="absolute inset-0"
-        style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.55) 100%)" }}
+        style={{
+          background: slide.image
+            ? "linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.65) 100%)"
+            : "linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.55) 100%)",
+        }}
         aria-hidden="true"
       />
 
