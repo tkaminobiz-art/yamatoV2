@@ -59,7 +59,7 @@ function CompletionScreen({ type }: { type: ContactTypeId }) {
           fontFamily: "var(--font-sans-loaded,'Noto Sans JP',sans-serif)",
           fontSize: "15px", color: "var(--text-light)", lineHeight: 1.9,
         }}>
-          担当者より1営業日以内にご連絡いたします。<br />
+          翌営業日（火・水定休）までにご連絡いたします。<br />
           お急ぎの場合はお電話にてご連絡ください。
         </p>
       </div>

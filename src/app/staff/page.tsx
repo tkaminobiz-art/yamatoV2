@@ -89,8 +89,8 @@ export default function StaffPage() {
               fontSize: "15px", color: "rgba(255,255,255,0.45)", lineHeight: 1.9,
               fontFamily: "var(--font-sans-loaded,'Noto Sans JP',sans-serif)",
             }}>
-              一生に一度の家づくりです。どんな人が建てるのかを知った上で、<br className="hidden md:block" />
-              ご相談いただけると嬉しいです。
+              一生に一度の家づくりです。どんな人が建てるのかを、<br className="hidden md:block" />
+              ご相談の前にどうかご確認ください。
             </p>
           </div>
         </div>

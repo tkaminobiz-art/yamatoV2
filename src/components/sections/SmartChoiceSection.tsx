@@ -107,12 +107,13 @@ export function SmartChoiceSection() {
                     className="font-bold leading-none"
                     style={{ fontFamily: "var(--font-inter-loaded,'Inter',sans-serif)", fontSize: "clamp(1.75rem,3vw,2rem)", color: "var(--accent)", letterSpacing: "-0.02em" }}
                   >
-                    年間 約3,000万円<span className="text-base font-medium">/1棟あたり</span>
+                    年間 数百億円規模<span className="text-base font-medium">/大手1社あたり</span>
                   </p>
                   <p className="text-text-light leading-relaxed" style={{ fontSize: "var(--text-small)" }}>
-                    全国展示場の維持費は、1棟あたり年間数千万円。
+                    大手1社の展示場維持費は年間数百億円規模。
                     <br />
-                    これがそのまま建物価格に転嫁されています。
+                    販売棟数で割ると、1棟ごとに数百〜数千万円が
+                    建物以外のコストとして計上されています。
                   </p>
                 </div>
               </div>
